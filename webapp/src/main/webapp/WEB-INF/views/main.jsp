@@ -3,7 +3,7 @@
 <jsp:include page="../templates/header.jsp"/>
 
 <div class="container">
-    <jsp:include page="../templates/topic_table.jsp"/>
+    <h1>Hello World</h1>
 </div>
 
 <jsp:include page="../templates/footer.jsp"/>
