@@ -2,6 +2,6 @@
 
 <jsp:include page="../../templates/header.jsp"/>
 
-<jsp:include page="../../templates/topic_table.jsp"/>
+<jsp:include page="../../templates/topics/topic_table.jsp"/>
 
 <jsp:include page="../../templates/footer.jsp"/>
