@@ -12,6 +12,9 @@
 
     <packaging>pom</packaging>
 
+    <modules>
+    </modules>
+
     <properties>
         <!-- jdk -->
         <jdk.version>9</jdk.version>
