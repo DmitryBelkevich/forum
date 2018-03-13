@@ -2,8 +2,6 @@
 
 <jsp:include page="../templates/header.jsp"/>
 
-<div class="container">
-    <h1>Hello World</h1>
-</div>
+<h1>Hello World</h1>
 
 <jsp:include page="../templates/footer.jsp"/>
