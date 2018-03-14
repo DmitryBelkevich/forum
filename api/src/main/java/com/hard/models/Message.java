@@ -1,7 +1,6 @@
 package com.hard.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -13,10 +12,12 @@ public class Message extends AbstractModel {
 
     @ManyToOne
     @JoinColumn(name = "topic_id", nullable = false)
+    @JsonIgnore
     private Topic topic;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     public String getText() {

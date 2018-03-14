@@ -1,7 +1,6 @@
 package com.hard.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,13 +13,15 @@ public class Topic extends AbstractModel {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
-//    @OneToMany(mappedBy = "topic")
-//    private Set<Message> messages;
+    @OneToMany(mappedBy = "topic")
+    private Set<Message> messages;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnore
     private Category category;
 
     public String getTitle() {
@@ -39,13 +40,13 @@ public class Topic extends AbstractModel {
         this.user = user;
     }
 
-//    public Set<Message> getMessages() {
-//        return messages;
-//    }
-//
-//    public void setMessages(Set<Message> messages) {
-//        this.messages = messages;
-//    }
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
+    }
 
     public Category getCategory() {
         return category;
