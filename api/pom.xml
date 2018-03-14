@@ -17,9 +17,52 @@
     <packaging>war</packaging>
 
     <properties>
+        <!-- app -->
+        <spring-data-jpa.version>1.11.9.RELEASE</spring-data-jpa.version>
+        <jackson.version>2.9.3</jackson.version>
+        <postgresql.version>42.1.4</postgresql.version>
+        <hibernate.version>5.2.12.Final</hibernate.version>
+        <jaxb-api.version>2.3.0</jaxb-api.version>
+        <aspectjweaver.version>1.8.13</aspectjweaver.version>
     </properties>
 
     <dependencies>
+
+        <!-- spring-data-jpa -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
+
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
+        <!-- hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!-- jaxb-api -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb-api.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
