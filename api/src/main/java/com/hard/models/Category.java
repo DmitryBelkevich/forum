@@ -23,9 +23,9 @@ public class Category extends AbstractModel {
         this.title = title;
     }
 
-//    public Set<Topic> getTopics() {
-//        return topics;
-//    }
+    public Set<Topic> getTopics() {
+        return topics;
+    }
 
     public void setTopics(Set<Topic> topics) {
         this.topics = topics;

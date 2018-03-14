@@ -15,11 +15,11 @@ public class User extends AbstractModel {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Topic> topics;
+//    @OneToMany(mappedBy = "user")
+//    private Set<Topic> topics;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Message> messages;
+//    @OneToMany(mappedBy = "user")
+//    private Set<Message> messages;
 
     public String getUsername() {
         return username;
@@ -37,19 +37,19 @@ public class User extends AbstractModel {
         this.password = password;
     }
 
-    public Set<Topic> getTopics() {
-        return topics;
-    }
+//    public Set<Topic> getTopics() {
+//        return topics;
+//    }
+//
+//    public void setTopics(Set<Topic> topics) {
+//        this.topics = topics;
+//    }
 
-    public void setTopics(Set<Topic> topics) {
-        this.topics = topics;
-    }
-
-    public Set<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(Set<Message> messages) {
-        this.messages = messages;
-    }
+//    public Set<Message> getMessages() {
+//        return messages;
+//    }
+//
+//    public void setMessages(Set<Message> messages) {
+//        this.messages = messages;
+//    }
 }

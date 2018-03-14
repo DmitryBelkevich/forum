@@ -13,8 +13,8 @@ public class Topic extends AbstractModel {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "topic")
-    private Set<Message> messages;
+//    @OneToMany(mappedBy = "topic")
+//    private Set<Message> messages;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -28,9 +28,9 @@ public class Topic extends AbstractModel {
         this.title = title;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
+    public User getUser() {
+        return user;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -39,14 +39,14 @@ public class Topic extends AbstractModel {
 //    public Set<Message> getMessages() {
 //        return messages;
 //    }
-
-    public void setMessages(Set<Message> messages) {
-        this.messages = messages;
-    }
-
-//    public Category getCategory() {
-//        return category;
+//
+//    public void setMessages(Set<Message> messages) {
+//        this.messages = messages;
 //    }
+
+    public Category getCategory() {
+        return category;
+    }
 
     public void setCategory(Category category) {
         this.category = category;
