@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <h1>Categories</h1>
 
 <table class="table">
@@ -10,13 +12,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>1</td>
-        <td><a href="/categories/1">category1</a></td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td><a href="/categories/2">category2</a></td>
-    </tr>
+    <c:forEach items="${categories}" var="category" varStatus="count">
+        <tr>
+            <td>${count.index + 1}</td>
+            <td><a href="/categories/${category.id}">${category.title}</a></td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>

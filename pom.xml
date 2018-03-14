@@ -27,6 +27,7 @@
         <!-- app -->
         <servlet-api.version>4.0.0</servlet-api.version>
         <spring.version>4.3.13.RELEASE</spring.version>
+        <jackson.version>2.9.3</jackson.version>
 
         <!-- tests -->
         <junit.version>4.12</junit.version>
@@ -64,6 +65,13 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
     </dependencies>

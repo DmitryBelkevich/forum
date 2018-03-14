@@ -17,6 +17,7 @@
     <packaging>war</packaging>
 
     <properties>
+        <!-- app -->
         <jstl.version>1.2</jstl.version>
     </properties>
 

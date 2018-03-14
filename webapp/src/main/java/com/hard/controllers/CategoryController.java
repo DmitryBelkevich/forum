@@ -23,6 +23,8 @@ public class CategoryController {
 
         Collection<Category> categories = categoryService.getAll();
 
+        modelAndView.addObject("categories", categories);
+
         return modelAndView;
     }
 
