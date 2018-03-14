@@ -12,8 +12,8 @@ public class Category extends AbstractModel {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "category")
-    private Set<Topic> topics;
+//    @OneToMany(mappedBy = "category")
+//    private Set<Topic> topics;
 
     public String getTitle() {
         return title;
@@ -23,11 +23,11 @@ public class Category extends AbstractModel {
         this.title = title;
     }
 
-    public Set<Topic> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(Set<Topic> topics) {
-        this.topics = topics;
-    }
+//    public Set<Topic> getTopics() {
+//        return topics;
+//    }
+//
+//    public void setTopics(Set<Topic> topics) {
+//        this.topics = topics;
+//    }
 }
