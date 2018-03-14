@@ -6,7 +6,8 @@
 
     <div class="form-group">
         <label for="titleInput">Title</label>
-        <input type="text" class="form-control" id="titleInput" aria-describedby="emailHelp" placeholder="Title" name="title">
+        <input type="text" class="form-control" id="titleInput" aria-describedby="emailHelp" placeholder="Title"
+               name="title">
     </div>
 
     <div class="form-group">
