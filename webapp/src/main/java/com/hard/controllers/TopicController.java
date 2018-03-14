@@ -1,9 +1,7 @@
 package com.hard.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -26,6 +24,16 @@ public class TopicController {
     @GetMapping(value = "/new")
     public ModelAndView newTopic() {
         ModelAndView modelAndView = new ModelAndView("topics/topic_new");
+
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/save")
+    public ModelAndView save(
+            @RequestParam("title") String title,
+            @RequestParam("message") String message
+    ) {
+        ModelAndView modelAndView = new ModelAndView("topics/topics_list");
 
         return modelAndView;
     }
