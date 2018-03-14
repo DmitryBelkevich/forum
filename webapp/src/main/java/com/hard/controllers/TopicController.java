@@ -20,7 +20,12 @@ public class TopicController {
     public ModelAndView getById(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("topics/topic");
 
-        modelAndView.addObject("id", id);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/new")
+    public ModelAndView newTopic() {
+        ModelAndView modelAndView = new ModelAndView("topics/topic_new");
 
         return modelAndView;
     }
