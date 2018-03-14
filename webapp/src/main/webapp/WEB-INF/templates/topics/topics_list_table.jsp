@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <h1>Topics</h1>
 
 <table class="table">
@@ -12,17 +14,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>1</td>
-        <td><a href="/topics/1">topic1</a></td>
-        <td>user1</td>
-        <td>10.10.10</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td><a href="/topics/2">topic2</a></td>
-        <td>user2</td>
-        <td>10.10.10</td>
-    </tr>
+    <c:forEach items="${topics}" var="topic" varStatus="count">
+        <tr>
+            <td>${count.index + 1}</td>
+            <td><a href="/topics/${topic.id}">${topic.title}</a></td>
+            <td>//TODO user1</td>
+            <td>//TODO 10.10.10</td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
