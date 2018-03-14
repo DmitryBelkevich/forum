@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @ComponentScan({
-        "com.hard.config",
+        "com.hard.config.app",
         "com.hard.repositories",
         "com.hard.services.impl",
 })
