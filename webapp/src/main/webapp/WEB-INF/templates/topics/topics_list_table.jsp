@@ -13,14 +13,14 @@
     </thead>
     <tbody>
     <tr>
-        <td><a href="/topics/1">1</a></td>
-        <td>topic1</td>
+        <td>1</td>
+        <td><a href="/topics/1">topic1</a></td>
         <td>user1</td>
         <td>10.10.10</td>
     </tr>
     <tr>
-        <td><a href="/topics/2">2</a></td>
-        <td>topic2</td>
+        <td>2</td>
+        <td><a href="/topics/2">topic2</a></td>
         <td>user2</td>
         <td>10.10.10</td>
     </tr>
