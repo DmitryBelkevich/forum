@@ -16,6 +16,10 @@ public class Topic extends AbstractModel {
     @OneToMany(mappedBy = "topic")
     private Set<Message> messages;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
     public String getTitle() {
         return title;
     }
@@ -38,5 +42,13 @@ public class Topic extends AbstractModel {
 
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

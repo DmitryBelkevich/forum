@@ -4,11 +4,18 @@ CREATE TABLE users (
   password VARCHAR(256)
 );
 
+CREATE TABLE categories (
+  id    BIGSERIAL PRIMARY KEY,
+  title VARCHAR(256)
+);
+
 CREATE TABLE topics (
-  id      BIGSERIAL PRIMARY KEY,
-  title   VARCHAR(256),
-  user_id BIGSERIAL NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (id)
+  id          BIGSERIAL PRIMARY KEY,
+  title       VARCHAR(256),
+  user_id     BIGSERIAL NOT NULL,
+  category_id BIGSERIAL NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
 CREATE TABLE message (
