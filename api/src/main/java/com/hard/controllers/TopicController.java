@@ -5,6 +5,7 @@ import com.hard.services.TopicService;
 import com.hard.specifications.topic.TopicSpecificationByCategoryId;
 import com.hard.specifications.topic.TopicSpecificationById;
 import com.hard.specifications.topic.TopicSpecificationByTitle;
+import com.hard.specifications.topic.TopicSpecificationByUserId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
@@ -26,7 +27,8 @@ public class TopicController {
     public ResponseEntity<Collection<Topic>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "title", required = false) String title,
-            @RequestParam(name = "categoryId", required = false) Long categoryId
+            @RequestParam(name = "categoryId", required = false) Long categoryId,
+            @RequestParam(name = "userId", required = false) Long userId
     ) {
         HttpStatus httpStatus;
 
@@ -36,11 +38,13 @@ public class TopicController {
         Specification<Topic> topicSpecificationById = new TopicSpecificationById(id);
         Specification<Topic> topicSpecificationByTitle = new TopicSpecificationByTitle(title);
         Specification<Topic> topicSpecificationByCategoryId = new TopicSpecificationByCategoryId(categoryId);
+        Specification<Topic> topicSpecificationByUserId = new TopicSpecificationByUserId(userId);
 
         Specifications<Topic> specifications = Specifications
                 .where(topicSpecificationById)
                 .and(topicSpecificationByTitle)
                 .and(topicSpecificationByCategoryId)
+                .and(topicSpecificationByUserId)
                 ;
 
         Collection<Topic> topics = topicService.getAll(specifications);
