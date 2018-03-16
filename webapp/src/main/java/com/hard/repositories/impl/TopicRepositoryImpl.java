@@ -24,6 +24,7 @@ public class TopicRepositoryImpl implements TopicRepository {
         RestTemplate restTemplate = new RestTemplate();
 
         String url = apiUrl + "/api/topics";
+
         if (specification != null)
             url += "?" + specification.getRequest();
 
