@@ -12,7 +12,8 @@
 
     <div class="form-group">
         <label for="messageInput">Message</label>
-        <textarea type="text" class="form-control" id="messageInput" placeholder="Message" name="text" rows="5"></textarea>
+        <textarea type="text" class="form-control" id="messageInput" placeholder="Message" name="text"
+                  rows="5"></textarea>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
