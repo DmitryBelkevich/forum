@@ -2,6 +2,7 @@ package com.hard.repositories.impl;
 
 import com.hard.models.Category;
 import com.hard.repositories.CategoryRepository;
+import com.hard.specifications.Specification;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,7 +22,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private String apiUrl;
 
     @Override
-    public Collection<Category> getAll() {
+    public Collection<Category> getAll(Specification<Category> specification) {
         RestTemplate restTemplate = new RestTemplate();
         String url = apiUrl + "/api/categories";
 

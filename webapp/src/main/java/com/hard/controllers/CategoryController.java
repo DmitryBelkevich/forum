@@ -4,6 +4,8 @@ import com.hard.models.Category;
 import com.hard.models.Topic;
 import com.hard.services.CategoryService;
 import com.hard.services.TopicService;
+import com.hard.specifications.Specification;
+import com.hard.specifications.topic.TopicSpecificationByCategoryId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,7 @@ public class CategoryController {
     public ModelAndView getAll() {
         ModelAndView modelAndView = new ModelAndView("categories/categories_list");
 
-        Collection<Category> categories = categoryService.getAll();
+        Collection<Category> categories = categoryService.getAll(null);
 
         modelAndView.addObject("categories", categories);
 
@@ -37,7 +39,9 @@ public class CategoryController {
     public ModelAndView getById(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("topics/topics_list");
 
-        Collection<Topic> topics = topicService.getAll();
+        Specification<Topic> topicSpecificationByCategoryId = new TopicSpecificationByCategoryId(id);
+
+        Collection<Topic> topics = topicService.getAll(topicSpecificationByCategoryId);
 
         modelAndView.addObject("topics", topics);
 

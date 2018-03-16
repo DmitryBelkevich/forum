@@ -2,6 +2,7 @@ package com.hard.repositories.impl;
 
 import com.hard.models.Topic;
 import com.hard.repositories.TopicRepository;
+import com.hard.specifications.Specification;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -19,9 +20,9 @@ public class TopicRepositoryImpl implements TopicRepository {
     private String apiUrl;
 
     @Override
-    public Collection<Topic> getAll() {
+    public Collection<Topic> getAll(Specification<Topic> specification) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = apiUrl + "/api/topics";
+        String url = apiUrl + "/api/topics?" + specification.getRequest();
 
         ParameterizedTypeReference typeReference = new ParameterizedTypeReference<Collection<Topic>>() {
         };
