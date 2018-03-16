@@ -1,8 +1,17 @@
 package com.hard.controllers;
 
+import com.hard.models.Category;
 import com.hard.models.Message;
 import com.hard.services.MessageService;
+import com.hard.specifications.category.CategorySpecificationById;
+import com.hard.specifications.category.CategorySpecificationByTitle;
+import com.hard.specifications.message.MessageSpecificationById;
+import com.hard.specifications.message.MessageSpecificationByText;
+import com.hard.specifications.message.MessageSpecificationByTopicId;
+import com.hard.specifications.message.MessageSpecificationByUserId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,13 +27,30 @@ public class MessageController {
     private MessageService messageService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Collection<Message>> getAll() {
+    public ResponseEntity<Collection<Message>> getAll(
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "text", required = false) String text,
+            @RequestParam(name = "topicId", required = false) Long topicId,
+            @RequestParam(name = "userId", required = false) Long userId
+    ) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 
-        Collection<Message> messages = messageService.getAll(null);
+        Specification<Message> messageSpecificationById = new MessageSpecificationById(id);
+        Specification<Message> messageSpecificationByText = new MessageSpecificationByText(text);
+        Specification<Message> messageSpecificationByTopicId = new MessageSpecificationByTopicId(topicId);
+        Specification<Message> messageSpecificationByUserId = new MessageSpecificationByUserId(userId);
+
+        Specifications<Message> specifications = Specifications
+                .where(messageSpecificationById)
+                .and(messageSpecificationByText)
+                .and(messageSpecificationByTopicId)
+                .and(messageSpecificationByUserId)
+                ;
+
+        Collection<Message> messages = messageService.getAll(specifications);
 
         if (messages.isEmpty()) {
             httpStatus = HttpStatus.NO_CONTENT;
