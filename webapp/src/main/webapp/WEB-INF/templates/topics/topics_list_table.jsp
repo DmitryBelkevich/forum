@@ -10,7 +10,7 @@
         <th>#</th>
         <th>Title</th>
         <th>Author</th>
-        <th>Date</th>
+        <th>Last message date</th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@
             <td>${count.index + 1}</td>
             <td><a href="/topics/${topic.id}">${topic.title}</a></td>
             <td>${topic.user.username}</td>
-            <td>//TODO 10.10.10</td>
+            <td>TODO</td>
         </tr>
     </c:forEach>
     </tbody>

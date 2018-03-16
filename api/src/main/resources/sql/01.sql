@@ -23,6 +23,7 @@ CREATE TABLE messages (
   text     VARCHAR(256),
   user_id  BIGSERIAL NOT NULL,
   topic_id BIGSERIAL NOT NULL,
+  date TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (topic_id) REFERENCES topics (id)
 );
