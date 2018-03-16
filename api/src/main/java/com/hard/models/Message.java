@@ -1,6 +1,7 @@
 package com.hard.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
 @Table(name = "messages")
 public class Message extends AbstractModel {
     @Column(name = "text")
+    @Type(type = "text")
     private String text;
 
     @ManyToOne
