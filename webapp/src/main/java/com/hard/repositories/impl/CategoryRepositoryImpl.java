@@ -56,6 +56,9 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public void delete(long id) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/categories/" + id;
 
+        restTemplate.delete(url);
     }
 }

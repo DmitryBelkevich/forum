@@ -52,6 +52,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void delete(long id) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/users/" + id;
 
+        restTemplate.delete(url);
     }
 }

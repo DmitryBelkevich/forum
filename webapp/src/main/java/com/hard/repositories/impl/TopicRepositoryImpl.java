@@ -58,6 +58,9 @@ public class TopicRepositoryImpl implements TopicRepository {
 
     @Override
     public void delete(long id) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/topics/" + id;
 
+        restTemplate.delete(url);
     }
 }

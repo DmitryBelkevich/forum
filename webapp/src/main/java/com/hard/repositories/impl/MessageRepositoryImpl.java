@@ -52,6 +52,9 @@ public class MessageRepositoryImpl implements MessageRepository {
 
     @Override
     public void delete(long id) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/messages/" + id;
 
+        restTemplate.delete(url);
     }
 }
