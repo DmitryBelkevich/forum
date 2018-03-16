@@ -65,7 +65,7 @@ public class MessageController {
                 .body(messages);
     }
 
-    @GetMapping(value = "/${id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Message> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 

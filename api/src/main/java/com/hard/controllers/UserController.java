@@ -57,7 +57,7 @@ public class UserController {
                 .body(users);
     }
 
-    @GetMapping(value = "/${id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 

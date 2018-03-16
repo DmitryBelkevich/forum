@@ -57,7 +57,7 @@ public class CategoryController {
                 .body(categories);
     }
 
-    @GetMapping(value = "/${id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Category> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 

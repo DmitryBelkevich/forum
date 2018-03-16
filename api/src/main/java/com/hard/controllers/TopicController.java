@@ -65,7 +65,7 @@ public class TopicController {
                 .body(topics);
     }
 
-    @GetMapping(value = "/${id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Topic> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 
