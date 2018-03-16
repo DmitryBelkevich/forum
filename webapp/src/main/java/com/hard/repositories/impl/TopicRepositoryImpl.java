@@ -23,11 +23,9 @@ public class TopicRepositoryImpl implements TopicRepository {
     public Collection<Topic> getAll(Specification<Topic> specification) {
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = null;
-        if (specification == null)
-            url = apiUrl + "/api/topics";
-        else
-            url = apiUrl + "/api/topics?" + specification.getRequest();
+        String url = "/api/topics";
+        if (specification != null)
+            url += "?" + specification.getRequest();
 
         ParameterizedTypeReference typeReference = new ParameterizedTypeReference<Collection<Topic>>() {
         };
