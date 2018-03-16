@@ -13,7 +13,6 @@ public class Topic extends AbstractModel {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-//    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "topic")
