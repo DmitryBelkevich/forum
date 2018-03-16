@@ -4,6 +4,7 @@ import com.hard.models.Category;
 import com.hard.models.Topic;
 import com.hard.services.CategoryService;
 import com.hard.services.TopicService;
+import com.hard.specifications.AndSpecification;
 import com.hard.specifications.Specification;
 import com.hard.specifications.topic.TopicSpecificationByCategoryId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,11 @@ public class CategoryController {
 
         Specification<Topic> topicSpecificationByCategoryId = new TopicSpecificationByCategoryId(id);
 
-        Collection<Topic> topics = topicService.getAll(topicSpecificationByCategoryId);
+        AndSpecification<Topic> specifications = new AndSpecification<>(
+                topicSpecificationByCategoryId
+        );
+
+        Collection<Topic> topics = topicService.getAll(specifications);
 
         modelAndView.addObject("topics", topics);
 
