@@ -1,12 +1,12 @@
 package com.hard.models;
 
-import java.util.Set;
+import java.util.Collection;
 
 public class User extends AbstractModel {
     private String username;
     private String password;
-    private Set<Topic> topics;
-    private Set<Message> messages;
+    private Collection<Topic> topics;
+    private Collection<Message> messages;
 
     public String getUsername() {
         return username;
@@ -24,19 +24,19 @@ public class User extends AbstractModel {
         this.password = password;
     }
 
-    public Set<Topic> getTopics() {
+    public Collection<Topic> getTopics() {
         return topics;
     }
 
-    public void setTopics(Set<Topic> topics) {
+    public void setTopics(Collection<Topic> topics) {
         this.topics = topics;
     }
 
-    public Set<Message> getMessages() {
+    public Collection<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<Message> messages) {
+    public void setMessages(Collection<Message> messages) {
         this.messages = messages;
     }
 

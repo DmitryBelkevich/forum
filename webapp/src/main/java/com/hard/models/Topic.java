@@ -1,12 +1,12 @@
 package com.hard.models;
 
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 
 public class Topic extends AbstractModel {
     private String title;
     private User user;
-    private Set<Message> messages;
+    private Collection<Message> messages;
     private Category category;
 
     public String getTitle() {
@@ -25,11 +25,11 @@ public class Topic extends AbstractModel {
         this.user = user;
     }
 
-    public Set<Message> getMessages() {
+    public Collection<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<Message> messages) {
+    public void setMessages(Collection<Message> messages) {
         this.messages = messages;
     }
 

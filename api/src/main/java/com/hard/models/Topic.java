@@ -3,7 +3,7 @@ package com.hard.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Collection;
 
 @Entity
 @Table(name = "topics")
@@ -16,7 +16,7 @@ public class Topic extends AbstractModel {
     private User user;
 
     @OneToMany(mappedBy = "topic")
-    private Set<Message> messages;
+    private Collection<Message> messages;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -39,11 +39,11 @@ public class Topic extends AbstractModel {
         this.user = user;
     }
 
-    public Set<Message> getMessages() {
+    public Collection<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<Message> messages) {
+    public void setMessages(Collection<Message> messages) {
         this.messages = messages;
     }
 

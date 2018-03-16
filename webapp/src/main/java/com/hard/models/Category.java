@@ -1,10 +1,10 @@
 package com.hard.models;
 
-import java.util.Set;
+import java.util.Collection;
 
 public class Category extends AbstractModel {
     private String title;
-    private Set<Topic> topics;
+    private Collection<Topic> topics;
 
     public String getTitle() {
         return title;
@@ -14,11 +14,11 @@ public class Category extends AbstractModel {
         this.title = title;
     }
 
-    public Set<Topic> getTopics() {
+    public Collection<Topic> getTopics() {
         return topics;
     }
 
-    public void setTopics(Set<Topic> topics) {
+    public void setTopics(Collection<Topic> topics) {
         this.topics = topics;
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Set;
+import java.util.Collection;
 
 @Entity
 @Table(name = "categories")
@@ -13,7 +13,7 @@ public class Category extends AbstractModel {
     private String title;
 
     @OneToMany(mappedBy = "category")
-    private Set<Topic> topics;
+    private Collection<Topic> topics;
 
     public String getTitle() {
         return title;
@@ -23,11 +23,11 @@ public class Category extends AbstractModel {
         this.title = title;
     }
 
-    public Set<Topic> getTopics() {
+    public Collection<Topic> getTopics() {
         return topics;
     }
 
-    public void setTopics(Set<Topic> topics) {
+    public void setTopics(Collection<Topic> topics) {
         this.topics = topics;
     }
 }
