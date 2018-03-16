@@ -5,6 +5,13 @@ public class Message extends AbstractModel {
     private Topic topic;
     private User user;
 
+    public Message() {
+    }
+
+    public Message(String text) {
+        this.text = text;
+    }
+
     public String getText() {
         return text;
     }

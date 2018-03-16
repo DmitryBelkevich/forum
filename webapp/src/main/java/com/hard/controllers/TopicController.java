@@ -31,7 +31,7 @@ public class TopicController {
     @PostMapping(value = "/save")
     public ModelAndView save(
             @RequestParam("title") String title,
-            @RequestParam("message") String message
+            @RequestParam("text") String text
     ) {
         ModelAndView modelAndView = new ModelAndView("topics/topics_list");
 
