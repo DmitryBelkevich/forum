@@ -22,7 +22,12 @@ public class TopicRepositoryImpl implements TopicRepository {
     @Override
     public Collection<Topic> getAll(Specification<Topic> specification) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = apiUrl + "/api/topics?" + specification.getRequest();
+
+        String url = null;
+        if (specification == null)
+            url = apiUrl + "/api/topics";
+        else
+            url = apiUrl + "/api/topics?" + specification.getRequest();
 
         ParameterizedTypeReference typeReference = new ParameterizedTypeReference<Collection<Topic>>() {
         };
