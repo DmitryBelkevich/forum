@@ -1,5 +1,7 @@
 package com.hard.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -16,6 +18,7 @@ public class User extends AbstractModel {
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<Topic> topics;
 
     @OneToMany(mappedBy = "user")
