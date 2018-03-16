@@ -3,7 +3,6 @@ package com.hard.controllers;
 import com.hard.models.Category;
 import com.hard.models.Topic;
 import com.hard.services.CategoryService;
-import com.hard.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
