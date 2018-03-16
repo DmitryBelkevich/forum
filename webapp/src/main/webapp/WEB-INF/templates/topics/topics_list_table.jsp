@@ -18,7 +18,7 @@
         <tr>
             <td>${count.index + 1}</td>
             <td><a href="/topics/${topic.id}">${topic.title}</a></td>
-            <td>//TODO user1</td>
+            <td>${topic.user.username}</td>
             <td>//TODO 10.10.10</td>
         </tr>
     </c:forEach>
