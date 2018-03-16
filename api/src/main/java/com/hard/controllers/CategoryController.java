@@ -2,7 +2,11 @@ package com.hard.controllers;
 
 import com.hard.models.Category;
 import com.hard.services.CategoryService;
+import com.hard.specifications.category.CategorySpecificationById;
+import com.hard.specifications.category.CategorySpecificationByTitle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,13 +22,24 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Collection<Category>> getAll() {
+    public ResponseEntity<Collection<Category>> getAll(
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "title", required = false) String title
+    ) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 
-        Collection<Category> categories = categoryService.getAll(null);
+        Specification<Category> categorySpecificationById = new CategorySpecificationById(id);
+        Specification<Category> categorySpecificationByTitle = new CategorySpecificationByTitle(title);
+
+        Specifications<Category> specifications = Specifications
+                .where(categorySpecificationById)
+                .and(categorySpecificationByTitle)
+                ;
+
+        Collection<Category> categories = categoryService.getAll(specifications);
 
         if (categories.isEmpty()) {
             httpStatus = HttpStatus.NO_CONTENT;
