@@ -53,4 +53,14 @@ public class Message extends AbstractModel {
 
         return dateFormat.format(date);
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "text='" + text + '\'' +
+                ", topic=" + topic +
+                ", user=" + user +
+                ", date=" + date +
+                '}';
+    }
 }

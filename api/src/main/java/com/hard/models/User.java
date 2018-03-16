@@ -22,6 +22,7 @@ public class User extends AbstractModel {
     private Set<Topic> topics;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<Message> messages;
 
     public String getUsername() {

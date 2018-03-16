@@ -39,4 +39,14 @@ public class User extends AbstractModel {
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", topics=" + topics +
+                ", messages=" + messages +
+                '}';
+    }
 }

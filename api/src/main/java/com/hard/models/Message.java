@@ -21,7 +21,6 @@ public class Message extends AbstractModel {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
     private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
