@@ -2,7 +2,11 @@ package com.hard.controllers;
 
 import com.hard.models.User;
 import com.hard.services.UserService;
+import com.hard.specifications.user.UserSpecificationById;
+import com.hard.specifications.user.UserSpecificationByUsername;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,13 +22,24 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Collection<User>> getAll() {
+    public ResponseEntity<Collection<User>> getAll(
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "username", required = false) String username
+    ) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 
-        Collection<User> users = userService.getAll(null);
+        Specification<User> userSpecificationById = new UserSpecificationById(id);
+        Specification<User> userSpecificationByUsername = new UserSpecificationByUsername(username);
+
+        Specifications<User> specifications = Specifications
+                .where(userSpecificationById)
+                .and(userSpecificationByUsername)
+                ;
+
+        Collection<User> users = userService.getAll(specifications);
 
         if (users.isEmpty()) {
             httpStatus = HttpStatus.NO_CONTENT;
