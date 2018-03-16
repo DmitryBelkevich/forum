@@ -4,9 +4,6 @@ import com.hard.models.Category;
 import com.hard.models.Topic;
 import com.hard.services.CategoryService;
 import com.hard.services.TopicService;
-import com.hard.specifications.AndSpecification;
-import com.hard.specifications.Specification;
-import com.hard.specifications.topic.TopicSpecificationByCategoryId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +18,6 @@ import java.util.Collection;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private TopicService topicService;
 
     @GetMapping(value = "")
     public ModelAndView getAll() {
@@ -40,13 +34,9 @@ public class CategoryController {
     public ModelAndView getById(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("topics/topics_list");
 
-        Specification<Topic> topicSpecificationByCategoryId = new TopicSpecificationByCategoryId(id);
+        Category category = categoryService.getById(id);
 
-        AndSpecification<Topic> specifications = new AndSpecification<>(
-                topicSpecificationByCategoryId
-        );
-
-        Collection<Topic> topics = topicService.getAll(specifications);
+        Collection<Topic> topics = category.getTopics();
 
         modelAndView.addObject("topics", topics);
 
