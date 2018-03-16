@@ -32,8 +32,6 @@ public class TopicRepositoryImpl implements TopicRepository {
         };
         ResponseEntity<Collection<Topic>> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, typeReference);
 
-        HttpStatus statusCode = responseEntity.getStatusCode();
-        MediaType contentType = responseEntity.getHeaders().getContentType();
         Collection<Topic> topics = responseEntity.getBody();
 
         return topics;
@@ -41,7 +39,16 @@ public class TopicRepositoryImpl implements TopicRepository {
 
     @Override
     public Topic getById(long id) {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/topics/" + id;
+
+        ParameterizedTypeReference typeReference = new ParameterizedTypeReference<Topic>() {
+        };
+        ResponseEntity<Topic> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, typeReference);
+
+        Topic topic = responseEntity.getBody();
+
+        return topic;
     }
 
     @Override

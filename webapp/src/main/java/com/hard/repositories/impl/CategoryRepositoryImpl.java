@@ -30,8 +30,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         };
         ResponseEntity<Collection<Category>> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, typeReference);
 
-        HttpStatus statusCode = responseEntity.getStatusCode();
-        MediaType contentType = responseEntity.getHeaders().getContentType();
         Collection<Category> categories = responseEntity.getBody();
 
         return categories;
@@ -39,7 +37,16 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public Category getById(long id) {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/categories/" + id;
+
+        ParameterizedTypeReference typeReference = new ParameterizedTypeReference<Category>() {
+        };
+        ResponseEntity<Category> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, typeReference);
+
+        Category category = responseEntity.getBody();
+
+        return category;
     }
 
     @Override
