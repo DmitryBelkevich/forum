@@ -1,10 +1,7 @@
 package com.hard.controllers;
 
-import com.hard.models.Category;
 import com.hard.models.Message;
 import com.hard.services.MessageService;
-import com.hard.specifications.category.CategorySpecificationById;
-import com.hard.specifications.category.CategorySpecificationByTitle;
 import com.hard.specifications.message.MessageSpecificationById;
 import com.hard.specifications.message.MessageSpecificationByText;
 import com.hard.specifications.message.MessageSpecificationByTopicId;
@@ -47,8 +44,7 @@ public class MessageController {
                 .where(messageSpecificationById)
                 .and(messageSpecificationByText)
                 .and(messageSpecificationByTopicId)
-                .and(messageSpecificationByUserId)
-                ;
+                .and(messageSpecificationByUserId);
 
         Collection<Message> messages = messageService.getAll(specifications);
 

@@ -44,8 +44,7 @@ public class TopicController {
                 .where(topicSpecificationById)
                 .and(topicSpecificationByTitle)
                 .and(topicSpecificationByCategoryId)
-                .and(topicSpecificationByUserId)
-                ;
+                .and(topicSpecificationByUserId);
 
         Collection<Topic> topics = topicService.getAll(specifications);
 

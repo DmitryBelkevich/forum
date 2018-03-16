@@ -1,7 +1,6 @@
 package com.hard.specifications.message;
 
 import com.hard.models.Message;
-import com.hard.models.Topic;
 import com.hard.models.User;
 import org.springframework.data.jpa.domain.Specification;
 

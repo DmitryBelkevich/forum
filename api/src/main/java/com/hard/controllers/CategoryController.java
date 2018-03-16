@@ -36,8 +36,7 @@ public class CategoryController {
 
         Specifications<Category> specifications = Specifications
                 .where(categorySpecificationById)
-                .and(categorySpecificationByTitle)
-                ;
+                .and(categorySpecificationByTitle);
 
         Collection<Category> categories = categoryService.getAll(specifications);
 

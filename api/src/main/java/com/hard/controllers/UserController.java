@@ -36,8 +36,7 @@ public class UserController {
 
         Specifications<User> specifications = Specifications
                 .where(userSpecificationById)
-                .and(userSpecificationByUsername)
-                ;
+                .and(userSpecificationByUsername);
 
         Collection<User> users = userService.getAll(specifications);
 

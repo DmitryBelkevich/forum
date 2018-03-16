@@ -1,6 +1,5 @@
 package com.hard.specifications.message;
 
-import com.hard.models.Category;
 import com.hard.models.Message;
 import org.springframework.data.jpa.domain.Specification;
 

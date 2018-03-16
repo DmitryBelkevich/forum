@@ -1,7 +1,6 @@
 package com.hard.specifications.category;
 
 import com.hard.models.Category;
-import com.hard.models.Topic;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
