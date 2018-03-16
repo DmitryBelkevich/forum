@@ -4,6 +4,7 @@ import com.hard.models.Topic;
 import com.hard.repositories.TopicRepository;
 import com.hard.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +17,8 @@ public class TopicServiceImpl implements TopicService {
     private TopicRepository topicRepository;
 
     @Override
-    public Collection<Topic> getAll() {
-        return topicRepository.findAll();
+    public Collection<Topic> getAll(Specification<Topic> specification) {
+        return topicRepository.findAll(specification);
     }
 
     @Override

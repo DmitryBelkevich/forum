@@ -24,9 +24,9 @@ public class MessageController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 
-        Collection<Message> users = messageService.getAll();
+        Collection<Message> messages = messageService.getAll(null);
 
-        if (users.isEmpty()) {
+        if (messages.isEmpty()) {
             httpStatus = HttpStatus.NO_CONTENT;
 
             return ResponseEntity
@@ -40,7 +40,7 @@ public class MessageController {
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(users);
+                .body(messages);
     }
 
     @GetMapping(value = "/${id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

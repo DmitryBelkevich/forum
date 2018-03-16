@@ -24,7 +24,7 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 
-        Collection<User> users = userService.getAll();
+        Collection<User> users = userService.getAll(null);
 
         if (users.isEmpty()) {
             httpStatus = HttpStatus.NO_CONTENT;

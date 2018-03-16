@@ -2,7 +2,12 @@ package com.hard.controllers;
 
 import com.hard.models.Topic;
 import com.hard.services.TopicService;
+import com.hard.specifications.topic.TopicSpecificationByCategoryId;
+import com.hard.specifications.topic.TopicSpecificationById;
+import com.hard.specifications.topic.TopicSpecificationByTitle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,15 +23,29 @@ public class TopicController {
     private TopicService topicService;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Collection<Topic>> getAll() {
+    public ResponseEntity<Collection<Topic>> getAll(
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "categoryId", required = false) Long categoryId
+    ) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 
-        Collection<Topic> Topics = topicService.getAll();
+        Specification<Topic> topicSpecificationById = new TopicSpecificationById(id);
+        Specification<Topic> topicSpecificationByTitle = new TopicSpecificationByTitle(title);
+        Specification<Topic> topicSpecificationByCategoryId = new TopicSpecificationByCategoryId(categoryId);
 
-        if (Topics.isEmpty()) {
+        Specifications<Topic> specifications = Specifications
+                .where(topicSpecificationById)
+                .and(topicSpecificationByTitle)
+                .and(topicSpecificationByCategoryId)
+                ;
+
+        Collection<Topic> topics = topicService.getAll(specifications);
+
+        if (topics.isEmpty()) {
             httpStatus = HttpStatus.NO_CONTENT;
 
             return ResponseEntity
@@ -40,7 +59,7 @@ public class TopicController {
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(Topics);
+                .body(topics);
     }
 
     @GetMapping(value = "/${id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

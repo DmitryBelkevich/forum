@@ -4,6 +4,7 @@ import com.hard.models.Message;
 import com.hard.repositories.MessageRepository;
 import com.hard.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +17,8 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
 
     @Override
-    public Collection<Message> getAll() {
-        return messageRepository.findAll();
+    public Collection<Message> getAll(Specification<Message> specification) {
+        return messageRepository.findAll(specification);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.hard.models.User;
 import com.hard.repositories.UserRepository;
 import com.hard.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +17,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Collection<User> getAll() {
-        return userRepository.findAll();
+    public Collection<User> getAll(Specification<User> specification) {
+        return userRepository.findAll(specification);
     }
 
     @Override

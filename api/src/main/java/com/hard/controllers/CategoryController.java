@@ -24,9 +24,9 @@ public class CategoryController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 
-        Collection<Category> users = categoryService.getAll();
+        Collection<Category> categories = categoryService.getAll(null);
 
-        if (users.isEmpty()) {
+        if (categories.isEmpty()) {
             httpStatus = HttpStatus.NO_CONTENT;
 
             return ResponseEntity
@@ -40,7 +40,7 @@ public class CategoryController {
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(users);
+                .body(categories);
     }
 
     @GetMapping(value = "/${id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

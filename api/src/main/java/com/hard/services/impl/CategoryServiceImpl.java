@@ -4,6 +4,7 @@ import com.hard.models.Category;
 import com.hard.repositories.CategoryRepository;
 import com.hard.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +17,8 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Collection<Category> getAll() {
-        return categoryRepository.findAll();
+    public Collection<Category> getAll(Specification<Category> specification) {
+        return categoryRepository.findAll(specification);
     }
 
     @Override
