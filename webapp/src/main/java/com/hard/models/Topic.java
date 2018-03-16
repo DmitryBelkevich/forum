@@ -1,5 +1,8 @@
 package com.hard.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Topic extends AbstractModel {
@@ -38,5 +41,20 @@ public class Topic extends AbstractModel {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getLastMessageDate() {
+        Iterator<Message> iterator = messages.iterator();
+        Message message = iterator.next();
+
+        while (iterator.hasNext()) {
+            message = iterator.next();
+        }
+
+        Date date = message.getDate();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd.MM.yyyy HH:mm:ss");
+
+        return dateFormat.format(date);
     }
 }

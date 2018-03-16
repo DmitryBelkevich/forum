@@ -19,7 +19,7 @@
             <td>${count.index + 1}</td>
             <td><a href="/topics/${topic.id}">${topic.title}</a></td>
             <td>${topic.user.username}</td>
-            <td>TODO</td>
+            <td>${topic.lastMessageDate}</td>
         </tr>
     </c:forEach>
     </tbody>
