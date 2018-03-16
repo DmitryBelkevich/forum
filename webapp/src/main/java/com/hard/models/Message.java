@@ -1,5 +1,6 @@
 package com.hard.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message extends AbstractModel {
@@ -45,5 +46,11 @@ public class Message extends AbstractModel {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd.MM.yyyy HH:mm:ss");
+
+        return dateFormat.format(date);
     }
 }

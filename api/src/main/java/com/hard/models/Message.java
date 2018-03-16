@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -57,5 +58,11 @@ public class Message extends AbstractModel {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd.MM.yyyy HH:mm:ss");
+
+        return dateFormat.format(date);
     }
 }
