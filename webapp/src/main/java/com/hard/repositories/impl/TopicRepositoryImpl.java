@@ -23,7 +23,7 @@ public class TopicRepositoryImpl implements TopicRepository {
     public Collection<Topic> getAll(Specification<Topic> specification) {
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "/api/topics";
+        String url = apiUrl + "/api/topics";
         if (specification != null)
             url += "?" + specification.getRequest();
 
