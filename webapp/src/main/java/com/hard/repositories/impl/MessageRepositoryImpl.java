@@ -5,6 +5,7 @@ import com.hard.repositories.MessageRepository;
 import com.hard.specifications.Specification;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -46,8 +47,19 @@ public class MessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Message save(Message model) {
-        return null;
+    public Message save(Message message) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/messages";
+
+        HttpEntity<Message> httpEntity = new HttpEntity<>(message);
+
+        ParameterizedTypeReference typeReference = new ParameterizedTypeReference<Message>() {
+        };
+        ResponseEntity<Message> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
+
+        Message m = responseEntity.getBody();
+
+        return m;
     }
 
     @Override

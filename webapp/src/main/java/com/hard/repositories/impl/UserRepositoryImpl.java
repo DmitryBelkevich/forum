@@ -5,6 +5,7 @@ import com.hard.repositories.UserRepository;
 import com.hard.specifications.Specification;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -46,8 +47,19 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User save(User model) {
-        return null;
+    public User save(User user) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/users";
+
+        HttpEntity<User> httpEntity = new HttpEntity<>(user);
+
+        ParameterizedTypeReference typeReference = new ParameterizedTypeReference<User>() {
+        };
+        ResponseEntity<User> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
+
+        User u = responseEntity.getBody();
+
+        return u;
     }
 
     @Override

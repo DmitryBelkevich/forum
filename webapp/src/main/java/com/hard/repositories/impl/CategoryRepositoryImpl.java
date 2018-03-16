@@ -6,9 +6,8 @@ import com.hard.specifications.Specification;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -50,8 +49,19 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public Category save(Category model) {
-        return null;
+    public Category save(Category category) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/categories";
+
+        HttpEntity<Category> httpEntity = new HttpEntity<>(category);
+
+        ParameterizedTypeReference typeReference = new ParameterizedTypeReference<Category>() {
+        };
+        ResponseEntity<Category> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
+
+        Category c = responseEntity.getBody();
+
+        return c;
     }
 
     @Override

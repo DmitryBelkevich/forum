@@ -5,9 +5,8 @@ import com.hard.repositories.TopicRepository;
 import com.hard.specifications.Specification;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -52,8 +51,19 @@ public class TopicRepositoryImpl implements TopicRepository {
     }
 
     @Override
-    public Topic save(Topic model) {
-        return null;
+    public Topic save(Topic topic) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiUrl + "/api/topics";
+
+        HttpEntity<Topic> httpEntity = new HttpEntity<>(topic);
+
+        ParameterizedTypeReference typeReference = new ParameterizedTypeReference<Topic>() {
+        };
+        ResponseEntity<Topic> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
+
+        Topic t = responseEntity.getBody();
+
+        return t;
     }
 
     @Override
