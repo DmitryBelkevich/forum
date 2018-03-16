@@ -1,5 +1,6 @@
 package com.hard.models;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class Topic extends AbstractModel {
@@ -38,5 +39,15 @@ public class Topic extends AbstractModel {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Message getLastMessage() {
+        Iterator<Message> iterator = messages.iterator();
+        Message message = iterator.next();
+
+        while (iterator.hasNext())
+            message = iterator.next();
+
+        return message;
     }
 }
