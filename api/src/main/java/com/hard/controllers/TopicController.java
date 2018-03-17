@@ -49,21 +49,21 @@ public class TopicController {
 
         Collection<Topic> topics = topicService.getAll(specifications);
 
-        if (topics.isEmpty()) {
-            httpStatus = HttpStatus.NO_CONTENT;
+        if (!topics.isEmpty()) {
+            httpStatus = HttpStatus.OK;
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(topics);
         }
 
-        httpStatus = HttpStatus.OK;
+        httpStatus = HttpStatus.NO_CONTENT;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(topics);
+                .body(null);
     }
 
     @GetMapping("/{id}")

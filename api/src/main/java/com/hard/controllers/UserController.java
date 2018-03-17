@@ -41,21 +41,21 @@ public class UserController {
 
         Collection<User> users = userService.getAll(specifications);
 
-        if (users.isEmpty()) {
-            httpStatus = HttpStatus.NO_CONTENT;
+        if (!users.isEmpty()) {
+            httpStatus = HttpStatus.OK;
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(users);
         }
 
-        httpStatus = HttpStatus.OK;
+        httpStatus = HttpStatus.NO_CONTENT;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(users);
+                .body(null);
     }
 
     @GetMapping("/{id}")

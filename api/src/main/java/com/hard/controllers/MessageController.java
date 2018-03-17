@@ -49,21 +49,21 @@ public class MessageController {
 
         Collection<Message> messages = messageService.getAll(specifications);
 
-        if (messages.isEmpty()) {
-            httpStatus = HttpStatus.NO_CONTENT;
+        if (!messages.isEmpty()) {
+            httpStatus = HttpStatus.OK;
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(messages);
         }
 
-        httpStatus = HttpStatus.OK;
+        httpStatus = HttpStatus.NO_CONTENT;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(messages);
+                .body(null);
     }
 
     @GetMapping("/{id}")
