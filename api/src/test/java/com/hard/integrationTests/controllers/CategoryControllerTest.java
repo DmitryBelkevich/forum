@@ -39,6 +39,10 @@ public class CategoryControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
+    /**
+     * getAll
+     */
+
     @Test
     public void getAll_shouldReturnNoContentStatus() throws Exception {
         mockMvc.perform(
@@ -48,6 +52,7 @@ public class CategoryControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().string(""))
         ;
     }
 }
