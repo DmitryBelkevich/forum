@@ -1,4 +1,6 @@
-API
+**REST API**
+
+#
 
 **Categories**
 
