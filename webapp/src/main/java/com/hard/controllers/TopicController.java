@@ -20,6 +20,10 @@ public class TopicController {
     public ModelAndView getAll() {
         ModelAndView modelAndView = new ModelAndView("topics/topics_list");
 
+        Collection<Topic> topics = topicService.getAll(null);
+
+        modelAndView.addObject("topics", topics);
+
         return modelAndView;
     }
 

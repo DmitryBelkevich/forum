@@ -9,6 +9,7 @@
     <tr>
         <th>#</th>
         <th>Title</th>
+        <th>Category</th>
         <th>Author</th>
         <th>Last message date</th>
     </tr>
@@ -18,6 +19,7 @@
         <tr>
             <td>${count.index + 1}</td>
             <td><a href="/topics/${topic.id}">${topic.title}</a></td>
+            <td>${topic.category.title}</td>
             <td>${topic.user.username}</td>
             <td>${topic.lastMessage.formattedDate}</td>
         </tr>
