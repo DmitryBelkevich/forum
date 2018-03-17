@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hard.config.AppConfig;
 import com.hard.config.MvcConfig;
 import com.hard.models.Category;
-import com.hard.models.Topic;
 import com.hard.models.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "classpath:sql/00.sql",
         })
 })
-public class TopicControllerTest {
+public class UserControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -63,7 +62,7 @@ public class TopicControllerTest {
     @Test
     public void getAll_shouldReturnStatusNoContent204() throws Exception {
         mockMvc.perform(
-                get("/api/topics")
+                get("/api/users")
         )
                 // status
                 .andExpect(status().isNoContent())
@@ -78,14 +77,11 @@ public class TopicControllerTest {
 
     @Test
     public void getAll_shouldReturnCategoriesAndReturnStatusOk200() throws Exception {
-        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user1', '1234')");
-
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic1', 1, 1)");
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic2', 1, 1)");
+        jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user2', '1234')");
 
         mockMvc.perform(
-                get("/api/topics")
+                get("/api/users")
         )
                 // status
                 .andExpect(status().isOk())
@@ -96,22 +92,21 @@ public class TopicControllerTest {
                 // body
                 .andExpect(jsonPath("$.size()").value(2))
                 .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].title").value("topic1"))
+                .andExpect(jsonPath("$[0].username").value("user1"))
+                .andExpect(jsonPath("$[0].password").value("1234"))
                 .andExpect(jsonPath("$[1].id").value(2))
-                .andExpect(jsonPath("$[1].title").value("topic2"))
+                .andExpect(jsonPath("$[1].username").value("user2"))
+                .andExpect(jsonPath("$[1].password").value("1234"))
         ;
     }
 
     @Test
     public void getAll_shouldReturnCategoriesByRequestParamsAndReturnStatusOk200() throws Exception {
-        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user1', '1234')");
-
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic1', 1, 1)");
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic2', 1, 1)");
+        jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user2', '1234')");
 
         mockMvc.perform(
-                get("/api/topics?id=1&title=topic1")
+                get("/api/users?id=1&username=user1")
         )
                 // status
                 .andExpect(status().isOk())
@@ -122,7 +117,8 @@ public class TopicControllerTest {
                 // body
                 .andExpect(jsonPath("$.size()").value(1))
                 .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].title").value("topic1"))
+                .andExpect(jsonPath("$[0].username").value("user1"))
+                .andExpect(jsonPath("$[0].password").value("1234"))
         ;
     }
 
@@ -133,7 +129,7 @@ public class TopicControllerTest {
     @Test
     public void getById_shouldReturnStatusNotFound404() throws Exception {
         mockMvc.perform(
-                get("/api/topics/{id}", 1L)
+                get("/api/users/{id}", 1L)
         )
                 // status
                 .andExpect(status().isNotFound())
@@ -148,14 +144,11 @@ public class TopicControllerTest {
 
     @Test
     public void getById_shouldReturnCategoryAndReturnStatusOk200() throws Exception {
-        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user1', '1234')");
-
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic1', 1, 1)");
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic2', 1, 1)");
+        jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user2', '1234')");
 
         mockMvc.perform(
-                get("/api/topics/{id}", 1L)
+                get("/api/users/{id}", 1L)
         )
                 // status
                 .andExpect(status().isOk())
@@ -165,7 +158,8 @@ public class TopicControllerTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
                 // body
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.title").value("topic1"))
+                .andExpect(jsonPath("$.username").value("user1"))
+                .andExpect(jsonPath("$.password").value("1234"))
         ;
     }
 
@@ -175,28 +169,18 @@ public class TopicControllerTest {
 
     @Test
     public void save_shouldAddAndReturnStatusCreated201() throws Exception {
-        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user1', '1234')");
 
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic1', 1, 1)");
-
-        Topic topic = new Topic();
-        topic.setTitle("topic2");
-
-        Category category = new Category();
-        category.setId(1);
-        topic.setCategory(category);
-
         User user = new User();
-        user.setId(1);
-        topic.setUser(user);
+        user.setUsername("user2");
+        user.setPassword("1234");
 
-        String topicJson = new ObjectMapper().writeValueAsString(topic);
+        String userJson = new ObjectMapper().writeValueAsString(user);
 
         mockMvc.perform(
-                post("/api/topics")
+                post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                        .content(topicJson)
+                        .content(userJson)
         )
                 // status
                 .andExpect(status().isCreated())
@@ -206,11 +190,12 @@ public class TopicControllerTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
                 // body
                 .andExpect(jsonPath("$.id").value(2))
-                .andExpect(jsonPath("$.title").value("topic2"))
+                .andExpect(jsonPath("$.username").value("user2"))
+                .andExpect(jsonPath("$.password").value("1234"))
         ;
 
         mockMvc.perform(
-                get("/api/topics")
+                get("/api/users")
         )
                 // status
                 .andExpect(status().isOk())
@@ -221,37 +206,29 @@ public class TopicControllerTest {
                 // body
                 .andExpect(jsonPath("$.size()").value(2))
                 .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].title").value("topic1"))
+                .andExpect(jsonPath("$[0].username").value("user1"))
+                .andExpect(jsonPath("$[0].password").value("1234"))
                 .andExpect(jsonPath("$[1].id").value(2))
-                .andExpect(jsonPath("$[1].title").value("topic2"))
+                .andExpect(jsonPath("$[1].username").value("user2"))
+                .andExpect(jsonPath("$[1].password").value("1234"))
         ;
     }
 
     @Test
     public void save_shouldUpdateAndReturnStatusOk200() throws Exception {
-        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user1', '1234')");
-
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic1', 1, 1)");
-
-        Topic topic = new Topic();
-        topic.setId(1);
-        topic.setTitle("topic2");
-
-        Category category = new Category();
-        category.setId(1);
-        topic.setCategory(category);
 
         User user = new User();
         user.setId(1);
-        topic.setUser(user);
+        user.setUsername("user2");
+        user.setPassword("123456");
 
-        String topicJson = new ObjectMapper().writeValueAsString(topic);
+        String userJson = new ObjectMapper().writeValueAsString(user);
 
         mockMvc.perform(
-                post("/api/topics")
+                post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                        .content(topicJson)
+                        .content(userJson)
         )
                 // status
                 .andExpect(status().isOk())
@@ -261,11 +238,12 @@ public class TopicControllerTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
                 // body
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.title").value("topic2"))
+                .andExpect(jsonPath("$.username").value("user2"))
+                .andExpect(jsonPath("$.password").value("123456"))
         ;
 
         mockMvc.perform(
-                get("/api/topics")
+                get("/api/users")
         )
                 // status
                 .andExpect(status().isOk())
@@ -276,7 +254,8 @@ public class TopicControllerTest {
                 // body
                 .andExpect(jsonPath("$.size()").value(1))
                 .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].title").value("topic2"))
+                .andExpect(jsonPath("$[0].username").value("user2"))
+                .andExpect(jsonPath("$[0].password").value("123456"))
         ;
     }
 
@@ -286,14 +265,11 @@ public class TopicControllerTest {
 
     @Test
     public void delete_shouldReturnStatusNotFound404() throws Exception {
-        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user1', '1234')");
-
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic1', 1, 1)");
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic2', 1, 1)");
+        jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user2', '1234')");
 
         mockMvc.perform(
-                delete("/api/topics/{id}", 3L)
+                delete("/api/users/{id}", 3L)
         )
                 // status
                 .andExpect(status().isNotFound())
@@ -306,7 +282,7 @@ public class TopicControllerTest {
         ;
 
         mockMvc.perform(
-                get("/api/topics")
+                get("/api/users")
         )
                 // status
                 .andExpect(status().isOk())
@@ -317,22 +293,21 @@ public class TopicControllerTest {
                 // body
                 .andExpect(jsonPath("$.size()").value(2))
                 .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].title").value("topic1"))
+                .andExpect(jsonPath("$[0].username").value("user1"))
+                .andExpect(jsonPath("$[0].password").value("1234"))
                 .andExpect(jsonPath("$[1].id").value(2))
-                .andExpect(jsonPath("$[1].title").value("topic2"))
+                .andExpect(jsonPath("$[1].username").value("user2"))
+                .andExpect(jsonPath("$[1].password").value("1234"))
         ;
     }
 
     @Test
     public void delete_shouldDeleteAndReturnStatusNoContent204() throws Exception {
-        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user1', '1234')");
-
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic1', 1, 1)");
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic2', 1, 1)");
+        jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user2', '1234')");
 
         mockMvc.perform(
-                delete("/api/topics/{id}", 1L)
+                delete("/api/users/{id}", 1L)
         )
                 // status
                 .andExpect(status().isNoContent())
@@ -345,7 +320,7 @@ public class TopicControllerTest {
         ;
 
         mockMvc.perform(
-                get("/api/topics")
+                get("/api/users")
         )
                 // status
                 .andExpect(status().isOk())
@@ -356,7 +331,8 @@ public class TopicControllerTest {
                 // body
                 .andExpect(jsonPath("$.size()").value(1))
                 .andExpect(jsonPath("$[0].id").value(2))
-                .andExpect(jsonPath("$[0].title").value("topic2"))
+                .andExpect(jsonPath("$[0].username").value("user2"))
+                .andExpect(jsonPath("$[0].password").value("1234"))
         ;
     }
 
@@ -366,14 +342,11 @@ public class TopicControllerTest {
 
     @Test
     public void delete_shouldDeleteAllAndReturnStatusNoContent204() throws Exception {
-        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user1', '1234')");
-
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic1', 1, 1)");
-        jdbcTemplate.execute("INSERT INTO topics (title, user_id, category_id) VALUES ('topic2', 1, 1)");
+        jdbcTemplate.execute("INSERT INTO users (username, password) VALUES ('user2', '1234')");
 
         mockMvc.perform(
-                delete("/api/topics")
+                delete("/api/users")
         )
                 // status
                 .andExpect(status().isNoContent())
@@ -386,7 +359,7 @@ public class TopicControllerTest {
         ;
 
         mockMvc.perform(
-                get("/api/topics")
+                get("/api/users")
         )
                 // status
                 .andExpect(status().isNoContent())
