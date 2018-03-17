@@ -57,7 +57,7 @@ public class CategoryControllerTest {
      */
 
     @Test
-    public void getAll_shouldReturnNoContent204Status() throws Exception {
+    public void getAll_shouldReturnStatusNoContent204() throws Exception {
         mockMvc.perform(
                 get("/api/categories")
         )
@@ -73,7 +73,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void getAll_shouldReturnCategoriesAndReturnOkStatus() throws Exception {
+    public void getAll_shouldReturnCategoriesAndReturnStatusOk200() throws Exception {
         jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
 
@@ -96,7 +96,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void getAll_shouldReturnCategoriesByRequestParamsAndReturnOkStatus() throws Exception {
+    public void getAll_shouldReturnCategoriesByRequestParamsAndReturnStatusOk200() throws Exception {
         jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
 
@@ -121,7 +121,7 @@ public class CategoryControllerTest {
      */
 
     @Test
-    public void getById_shouldReturnNotFound404Status() throws Exception {
+    public void getById_shouldReturnStatusNotFound404() throws Exception {
         mockMvc.perform(
                 get("/api/categories/{id}", 1L)
         )
