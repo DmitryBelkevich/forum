@@ -12,4 +12,6 @@ public interface IService<T> {
     T save(T model);
 
     void delete(long id);
+
+    void deleteAll();
 }

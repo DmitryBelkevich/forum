@@ -21,7 +21,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<Collection<Category>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "title", required = false) String title
@@ -85,7 +85,7 @@ public class CategoryController {
                 .body(c);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Category> add(@RequestBody Category category) {
         HttpStatus httpStatus;
 
@@ -143,7 +143,7 @@ public class CategoryController {
                 .body(null);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping
     public ResponseEntity<Void> deleteAll() {
         HttpStatus httpStatus = HttpStatus.NO_CONTENT;
 
@@ -151,7 +151,7 @@ public class CategoryController {
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-//        categoryService.deleteAll();
+        categoryService.deleteAll();
 
         return ResponseEntity
                 .status(httpStatus)

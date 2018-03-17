@@ -23,7 +23,7 @@ public class TopicController {
     @Autowired
     private TopicService topicService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<Collection<Topic>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "title", required = false) String title,
@@ -93,7 +93,7 @@ public class TopicController {
                 .body(t);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Topic> add(@RequestBody Topic Topic) {
         HttpStatus httpStatus;
 
@@ -151,7 +151,7 @@ public class TopicController {
                 .body(null);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping
     public ResponseEntity<Void> deleteAll() {
         HttpStatus httpStatus = HttpStatus.NO_CONTENT;
 
@@ -159,7 +159,7 @@ public class TopicController {
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-//        topicService.deleteAll();
+        topicService.deleteAll();
 
         return ResponseEntity
                 .status(httpStatus)

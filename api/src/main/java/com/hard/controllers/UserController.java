@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<Collection<User>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "username", required = false) String username
@@ -85,7 +85,7 @@ public class UserController {
                 .body(u);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<User> add(@RequestBody User user) {
         HttpStatus httpStatus;
 
@@ -143,7 +143,7 @@ public class UserController {
                 .body(null);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping
     public ResponseEntity<Void> deleteAll() {
         HttpStatus httpStatus = HttpStatus.NO_CONTENT;
 
@@ -151,7 +151,7 @@ public class UserController {
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-//        userService.deleteAll();
+        userService.deleteAll();
 
         return ResponseEntity
                 .status(httpStatus)
