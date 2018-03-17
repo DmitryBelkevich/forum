@@ -74,14 +74,14 @@ public class TopicController {
         // 3 формирование Topic.Collection<Message>
         Message message = new Message();
 
-            // 1 text
-            message.setText(text);
-            // 2 topic
+        // 1 text
+        message.setText(text);
+        // 2 topic
 //            message.setTopic(topic);
-            // 3 user
+        // 3 user
 //            message.setUser(userService.getById(1));
-            // 4 date
-            message.setDate(new Date());
+        // 4 date
+        message.setDate(new Date());
 
         Collection<Message> messages = new ArrayList<>();
         messages.add(message);
