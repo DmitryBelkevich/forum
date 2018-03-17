@@ -57,7 +57,7 @@ public class CategoryControllerTest {
      */
 
     @Test
-    public void getAll_shouldReturnNoContentStatus() throws Exception {
+    public void getAll_shouldReturnNoContent204Status() throws Exception {
         mockMvc.perform(
                 get("/api/categories")
         )
@@ -73,7 +73,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void getAll_shouldCreateCategoriesAndReturnOkStatus() throws Exception {
+    public void getAll_shouldReturnCategoriesAndReturnOkStatus() throws Exception {
         jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
 
@@ -95,12 +95,33 @@ public class CategoryControllerTest {
         ;
     }
 
+    @Test
+    public void getAll_shouldReturnCategoriesByRequestParamsAndReturnOkStatus() throws Exception {
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
+
+        mockMvc.perform(
+                get("/api/categories?id=1&title=category1")
+        )
+                // status
+                .andExpect(status().isOk())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].title").value("category1"))
+        ;
+    }
+
     /**
      * getById
      */
 
     @Test
-    public void getById_shouldReturnNotFoundStatus() throws Exception {
+    public void getById_shouldReturnNotFound404Status() throws Exception {
         mockMvc.perform(
                 get("/api/categories/{id}", 1L)
         )
