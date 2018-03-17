@@ -254,6 +254,42 @@ public class CategoryControllerTest {
      */
 
     @Test
+    public void delete_shouldReturnStatusNotFound404() throws Exception {
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
+
+        mockMvc.perform(
+                delete("/api/categories/{id}", 3L)
+        )
+                // status
+                .andExpect(status().isNotFound())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(content().string(""))
+        ;
+
+        mockMvc.perform(
+                get("/api/categories")
+        )
+                // status
+                .andExpect(status().isOk())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(jsonPath("$.size()").value(2))
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].title").value("category1"))
+                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].title").value("category2"))
+        ;
+    }
+
+    @Test
     public void delete_shouldDeleteAndReturnStatusNoContent204() throws Exception {
         jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
         jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
