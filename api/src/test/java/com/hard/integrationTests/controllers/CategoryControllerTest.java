@@ -135,4 +135,24 @@ public class CategoryControllerTest {
                 .andExpect(content().string(""))
         ;
     }
+
+    @Test
+    public void getById_shouldReturnCategoryAndReturnStatusOk200() throws Exception {
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
+
+        mockMvc.perform(
+                get("/api/categories/{id}", 1L)
+        )
+                // status
+                .andExpect(status().isOk())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.title").value("category1"))
+        ;
+    }
 }
