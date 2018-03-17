@@ -142,4 +142,20 @@ public class CategoryController {
                 .headers(headers)
                 .body(null);
     }
+
+    @DeleteMapping("")
+    public ResponseEntity<Void> deleteAll() {
+        HttpStatus httpStatus = HttpStatus.NO_CONTENT;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+
+//        categoryService.deleteAll();
+
+        return ResponseEntity
+                .status(httpStatus)
+                .headers(headers)
+                .body(null);
+    }
 }
