@@ -5,6 +5,16 @@
 <form method="post" action="/topics/save">
 
     <div class="form-group">
+        <label for="categoryInput">Category</label>
+        <select class="custom-select" id="categoryInput">
+            <option selected>--- select category ---</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+    </div>
+
+    <div class="form-group">
         <label for="titleInput">Title</label>
         <input type="text" class="form-control" id="titleInput" aria-describedby="emailHelp" placeholder="Title"
                name="title">
