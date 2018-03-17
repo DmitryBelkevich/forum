@@ -126,18 +126,13 @@ public class MessageController {
 
         Message m = messageService.getById(id);
 
-        if (m == null) {
+        if (m != null) {
+            httpStatus = HttpStatus.NO_CONTENT;
+
+            messageService.delete(id);
+        } else {
             httpStatus = HttpStatus.NOT_FOUND;
-
-            return ResponseEntity
-                    .status(httpStatus)
-                    .headers(headers)
-                    .body(null);
         }
-
-        messageService.delete(id);
-
-        httpStatus = HttpStatus.NO_CONTENT;
 
         return ResponseEntity
                 .status(httpStatus)

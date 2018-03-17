@@ -126,18 +126,13 @@ public class TopicController {
 
         Topic t = topicService.getById(id);
 
-        if (t == null) {
+        if (t != null) {
+            httpStatus = HttpStatus.NO_CONTENT;
+
+            topicService.delete(id);
+        } else {
             httpStatus = HttpStatus.NOT_FOUND;
-
-            return ResponseEntity
-                    .status(httpStatus)
-                    .headers(headers)
-                    .body(null);
         }
-
-        topicService.delete(id);
-
-        httpStatus = HttpStatus.NO_CONTENT;
 
         return ResponseEntity
                 .status(httpStatus)

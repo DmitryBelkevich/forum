@@ -118,18 +118,13 @@ public class UserController {
 
         User u = userService.getById(id);
 
-        if (u == null) {
+        if (u != null) {
+            httpStatus = HttpStatus.NO_CONTENT;
+
+            userService.delete(id);
+        } else {
             httpStatus = HttpStatus.NOT_FOUND;
-
-            return ResponseEntity
-                    .status(httpStatus)
-                    .headers(headers)
-                    .body(null);
         }
-
-        userService.delete(id);
-
-        httpStatus = HttpStatus.NO_CONTENT;
 
         return ResponseEntity
                 .status(httpStatus)

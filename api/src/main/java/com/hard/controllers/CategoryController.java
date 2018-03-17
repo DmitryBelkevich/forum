@@ -118,18 +118,13 @@ public class CategoryController {
 
         Category c = categoryService.getById(id);
 
-        if (c == null) {
+        if (c != null) {
+            httpStatus = HttpStatus.NO_CONTENT;
+
+            categoryService.delete(id);
+        } else {
             httpStatus = HttpStatus.NOT_FOUND;
-
-            return ResponseEntity
-                    .status(httpStatus)
-                    .headers(headers)
-                    .body(null);
         }
-
-        categoryService.delete(id);
-
-        httpStatus = HttpStatus.NO_CONTENT;
 
         return ResponseEntity
                 .status(httpStatus)
