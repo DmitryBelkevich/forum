@@ -68,21 +68,21 @@ public class CategoryController {
 
         Category c = categoryService.getById(id);
 
-        if (c == null) {
-            httpStatus = HttpStatus.NOT_FOUND;
+        if (c != null) {
+            httpStatus = HttpStatus.OK;
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(c);
         }
 
-        httpStatus = HttpStatus.OK;
+        httpStatus = HttpStatus.NOT_FOUND;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(c);
+                .body(null);
     }
 
     @PostMapping

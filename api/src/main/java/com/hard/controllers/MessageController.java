@@ -76,21 +76,21 @@ public class MessageController {
 
         Message m = messageService.getById(id);
 
-        if (m == null) {
-            httpStatus = HttpStatus.NOT_FOUND;
+        if (m != null) {
+            httpStatus = HttpStatus.OK;
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(m);
         }
 
-        httpStatus = HttpStatus.OK;
+        httpStatus = HttpStatus.NOT_FOUND;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(m);
+                .body(null);
     }
 
     @PostMapping

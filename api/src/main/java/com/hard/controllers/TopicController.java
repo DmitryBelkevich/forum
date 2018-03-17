@@ -76,21 +76,21 @@ public class TopicController {
 
         Topic t = topicService.getById(id);
 
-        if (t == null) {
-            httpStatus = HttpStatus.NOT_FOUND;
+        if (t != null) {
+            httpStatus = HttpStatus.OK;
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(t);
         }
 
-        httpStatus = HttpStatus.OK;
+        httpStatus = HttpStatus.NOT_FOUND;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(t);
+                .body(null);
     }
 
     @PostMapping

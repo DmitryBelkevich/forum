@@ -94,4 +94,24 @@ public class CategoryControllerTest {
                 .andExpect(jsonPath("$[1].title").value("category2"))
         ;
     }
+
+    /**
+     * getById
+     */
+
+    @Test
+    public void getById_shouldReturnNotFoundStatus() throws Exception {
+        mockMvc.perform(
+                get("/api/categories/{id}", 1L)
+        )
+                // status
+                .andExpect(status().isNotFound())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(content().string(""))
+        ;
+    }
 }

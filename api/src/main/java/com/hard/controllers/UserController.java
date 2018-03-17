@@ -68,21 +68,21 @@ public class UserController {
 
         User u = userService.getById(id);
 
-        if (u == null) {
-            httpStatus = HttpStatus.NOT_FOUND;
+        if (u != null) {
+            httpStatus = HttpStatus.OK;
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(u);
         }
 
-        httpStatus = HttpStatus.OK;
+        httpStatus = HttpStatus.NOT_FOUND;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(u);
+                .body(null);
     }
 
     @PostMapping
