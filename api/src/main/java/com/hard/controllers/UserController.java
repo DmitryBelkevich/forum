@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "")
     public ResponseEntity<Collection<User>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "username", required = false) String username
@@ -30,6 +30,7 @@ public class UserController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Specification<User> userSpecificationById = new UserSpecificationById(id);
         Specification<User> userSpecificationByUsername = new UserSpecificationByUsername(username);
@@ -57,12 +58,13 @@ public class UserController {
                 .body(users);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         User u = userService.getById(id);
 
@@ -83,12 +85,13 @@ public class UserController {
                 .body(u);
     }
 
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "")
     public ResponseEntity<User> add(@RequestBody User user) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         User u = userService.getById(user.getId());
 
@@ -117,6 +120,7 @@ public class UserController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         User u = userService.getById(id);
 

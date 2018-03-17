@@ -23,7 +23,7 @@ public class TopicController {
     @Autowired
     private TopicService topicService;
 
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "")
     public ResponseEntity<Collection<Topic>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "title", required = false) String title,
@@ -34,6 +34,7 @@ public class TopicController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Specification<Topic> topicSpecificationById = new TopicSpecificationById(id);
         Specification<Topic> topicSpecificationByTitle = new TopicSpecificationByTitle(title);
@@ -65,12 +66,13 @@ public class TopicController {
                 .body(topics);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Topic> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Topic t = topicService.getById(id);
 
@@ -91,12 +93,13 @@ public class TopicController {
                 .body(t);
     }
 
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "")
     public ResponseEntity<Topic> add(@RequestBody Topic Topic) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Topic t = topicService.getById(Topic.getId());
 
@@ -125,6 +128,7 @@ public class TopicController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Topic t = topicService.getById(id);
 

@@ -23,7 +23,7 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "")
     public ResponseEntity<Collection<Message>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "text", required = false) String text,
@@ -34,6 +34,7 @@ public class MessageController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Specification<Message> messageSpecificationById = new MessageSpecificationById(id);
         Specification<Message> messageSpecificationByText = new MessageSpecificationByText(text);
@@ -65,12 +66,13 @@ public class MessageController {
                 .body(messages);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Message> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Message m = messageService.getById(id);
 
@@ -91,12 +93,13 @@ public class MessageController {
                 .body(m);
     }
 
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "")
     public ResponseEntity<Message> add(@RequestBody Message message) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Message m = messageService.getById(message.getId());
 
@@ -125,6 +128,7 @@ public class MessageController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         Message m = messageService.getById(id);
 
