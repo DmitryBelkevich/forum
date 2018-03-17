@@ -103,20 +103,12 @@ public class TopicController {
 
         Topic t = topicService.getById(topic.getId());
 
-        if (t != null) {
+        if (t != null)
             httpStatus = HttpStatus.OK;
-
-            topicService.save(topic);
-
-            return ResponseEntity
-                    .status(httpStatus)
-                    .headers(headers)
-                    .body(topic);
-        }
+        else
+            httpStatus = HttpStatus.CREATED;
 
         topicService.save(topic);
-
-        httpStatus = HttpStatus.CREATED;
 
         return ResponseEntity
                 .status(httpStatus)

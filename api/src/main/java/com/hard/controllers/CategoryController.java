@@ -95,20 +95,12 @@ public class CategoryController {
 
         Category c = categoryService.getById(category.getId());
 
-        if (c != null) {
+        if (c != null)
             httpStatus = HttpStatus.OK;
-
-            categoryService.save(category);
-
-            return ResponseEntity
-                    .status(httpStatus)
-                    .headers(headers)
-                    .body(category);
-        }
+        else
+            httpStatus = HttpStatus.CREATED;
 
         categoryService.save(category);
-
-        httpStatus = HttpStatus.CREATED;
 
         return ResponseEntity
                 .status(httpStatus)

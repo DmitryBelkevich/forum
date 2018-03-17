@@ -95,20 +95,12 @@ public class UserController {
 
         User u = userService.getById(user.getId());
 
-        if (u != null) {
+        if (u != null)
             httpStatus = HttpStatus.OK;
-
-            userService.save(user);
-
-            return ResponseEntity
-                    .status(httpStatus)
-                    .headers(headers)
-                    .body(user);
-        }
+        else
+            httpStatus = HttpStatus.CREATED;
 
         userService.save(user);
-
-        httpStatus = HttpStatus.CREATED;
 
         return ResponseEntity
                 .status(httpStatus)

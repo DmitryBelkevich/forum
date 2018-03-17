@@ -103,20 +103,12 @@ public class MessageController {
 
         Message m = messageService.getById(message.getId());
 
-        if (m != null) {
+        if (m != null)
             httpStatus = HttpStatus.OK;
-
-            messageService.save(message);
-
-            return ResponseEntity
-                    .status(httpStatus)
-                    .headers(headers)
-                    .body(message);
-        }
+        else
+            httpStatus = HttpStatus.CREATED;
 
         messageService.save(message);
-
-        httpStatus = HttpStatus.CREATED;
 
         return ResponseEntity
                 .status(httpStatus)
