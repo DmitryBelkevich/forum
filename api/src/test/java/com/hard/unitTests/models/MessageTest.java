@@ -23,7 +23,7 @@ public class MessageTest {
     }
 
     @Test
-    public void shouldReturnFormattedDate() {
+    public void getFormattedDate_shouldReturnFormattedDate() {
         Date date = new Date();
         message.setDate(date);
 
