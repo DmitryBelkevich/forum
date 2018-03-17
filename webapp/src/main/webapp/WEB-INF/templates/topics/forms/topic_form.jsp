@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <h1>new Topic</h1>
 
-<form method="post" action="/topics/save">
-
+<form:form method="post" action="/topics/save">
     <div class="form-group">
         <label for="categoryInput">Category</label>
         <select class="custom-select" id="categoryInput">
@@ -15,17 +16,29 @@
     </div>
 
     <div class="form-group">
-        <label for="titleInput">Title</label>
-        <input type="text" class="form-control" id="titleInput" aria-describedby="emailHelp" placeholder="Title"
-               name="title">
+        <form:label path="title" for="titleInput">Title</form:label>
+        <form:input
+                path="title"
+                type="text"
+                class="form-control"
+                id="titleInput"
+                aria-describedby="emailHelp"
+                placeholder="Title"
+        />
     </div>
 
     <div class="form-group">
         <label for="messageInput">Message</label>
-        <textarea type="text" class="form-control" id="messageInput" placeholder="Message" name="text"
-                  rows="5"></textarea>
+        <textarea
+                type="text"
+                class="form-control"
+                id="messageInput"
+                placeholder="Message"
+                rows="5"
+                name="text"
+        ></textarea>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
 
-</form>
+</form:form>
