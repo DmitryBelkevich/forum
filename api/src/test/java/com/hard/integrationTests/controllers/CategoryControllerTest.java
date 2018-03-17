@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -244,6 +245,44 @@ public class CategoryControllerTest {
                 // body
                 .andExpect(jsonPath("$.size()").value(1))
                 .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].title").value("category2"))
+        ;
+    }
+
+    /**
+     * delete
+     */
+
+    @Test
+    public void delete_shouldDeleteAndReturnStatusNoContent204() throws Exception {
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
+
+        mockMvc.perform(
+                delete("/api/categories/{id}", 1L)
+        )
+                // status
+                .andExpect(status().isNoContent())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(content().string(""))
+        ;
+
+        mockMvc.perform(
+                get("/api/categories")
+        )
+                // status
+                .andExpect(status().isOk())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].id").value(2))
                 .andExpect(jsonPath("$[0].title").value("category2"))
         ;
     }
