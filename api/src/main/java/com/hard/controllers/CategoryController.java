@@ -96,12 +96,14 @@ public class CategoryController {
         Category c = categoryService.getById(category.getId());
 
         if (c != null) {
-            httpStatus = HttpStatus.CONFLICT;
+            httpStatus = HttpStatus.OK;
+
+            categoryService.save(category);
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(category);
         }
 
         categoryService.save(category);

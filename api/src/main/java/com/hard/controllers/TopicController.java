@@ -94,32 +94,34 @@ public class TopicController {
     }
 
     @PostMapping
-    public ResponseEntity<Topic> add(@RequestBody Topic Topic) {
+    public ResponseEntity<Topic> add(@RequestBody Topic topic) {
         HttpStatus httpStatus;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-        Topic t = topicService.getById(Topic.getId());
+        Topic t = topicService.getById(topic.getId());
 
         if (t != null) {
-            httpStatus = HttpStatus.CONFLICT;
+            httpStatus = HttpStatus.OK;
+
+            topicService.save(topic);
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(topic);
         }
 
-        topicService.save(Topic);
+        topicService.save(topic);
 
         httpStatus = HttpStatus.CREATED;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(Topic);
+                .body(topic);
     }
 
     @DeleteMapping("/{id}")

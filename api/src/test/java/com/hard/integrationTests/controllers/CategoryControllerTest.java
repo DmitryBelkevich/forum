@@ -1,7 +1,9 @@
 package com.hard.integrationTests.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hard.config.AppConfig;
 import com.hard.config.MvcConfig;
+import com.hard.models.Category;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -153,6 +156,95 @@ public class CategoryControllerTest {
                 // body
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.title").value("category1"))
+        ;
+    }
+
+    /**
+     * save
+     */
+
+    @Test
+    public void save_shouldAddAndReturnStatusCreated201() throws Exception {
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
+
+        Category category = new Category();
+        category.setTitle("category2");
+
+        String categoryJson = new ObjectMapper().writeValueAsString(category);
+
+        mockMvc.perform(
+                post("/api/categories")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .content(categoryJson)
+        )
+                // status
+                .andExpect(status().isCreated())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(jsonPath("$.id").value(2))
+                .andExpect(jsonPath("$.title").value("category2"))
+        ;
+
+        mockMvc.perform(
+                get("/api/categories")
+        )
+                // status
+                .andExpect(status().isOk())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(jsonPath("$.size()").value(2))
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].title").value("category1"))
+                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].title").value("category2"))
+        ;
+    }
+
+    @Test
+    public void save_shouldUpdateAndReturnStatusOk200() throws Exception {
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
+
+        Category category = new Category();
+        category.setId(1);
+        category.setTitle("category2");
+
+        String categoryJson = new ObjectMapper().writeValueAsString(category);
+
+        mockMvc.perform(
+                post("/api/categories")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .content(categoryJson)
+        )
+                // status
+                .andExpect(status().isOk())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.title").value("category2"))
+        ;
+
+        mockMvc.perform(
+                get("/api/categories")
+        )
+                // status
+                .andExpect(status().isOk())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].title").value("category2"))
         ;
     }
 }

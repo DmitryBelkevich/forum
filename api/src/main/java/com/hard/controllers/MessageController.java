@@ -104,12 +104,14 @@ public class MessageController {
         Message m = messageService.getById(message.getId());
 
         if (m != null) {
-            httpStatus = HttpStatus.CONFLICT;
+            httpStatus = HttpStatus.OK;
+
+            messageService.save(message);
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(message);
         }
 
         messageService.save(message);

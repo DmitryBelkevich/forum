@@ -96,12 +96,14 @@ public class UserController {
         User u = userService.getById(user.getId());
 
         if (u != null) {
-            httpStatus = HttpStatus.CONFLICT;
+            httpStatus = HttpStatus.OK;
+
+            userService.save(user);
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(user);
         }
 
         userService.save(user);
