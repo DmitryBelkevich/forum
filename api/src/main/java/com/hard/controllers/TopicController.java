@@ -23,7 +23,7 @@ public class TopicController {
     @Autowired
     private TopicService topicService;
 
-    @GetMapping(value = "")
+    @GetMapping("")
     public ResponseEntity<Collection<Topic>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "title", required = false) String title,
@@ -66,7 +66,7 @@ public class TopicController {
                 .body(topics);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Topic> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 
@@ -93,7 +93,7 @@ public class TopicController {
                 .body(t);
     }
 
-    @PostMapping(value = "")
+    @PostMapping("")
     public ResponseEntity<Topic> add(@RequestBody Topic Topic) {
         HttpStatus httpStatus;
 

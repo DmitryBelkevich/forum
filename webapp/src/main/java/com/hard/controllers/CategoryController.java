@@ -18,7 +18,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping(value = "")
+    @GetMapping("")
     public ModelAndView getAll() {
         ModelAndView modelAndView = new ModelAndView("categories/categories_list");
 
@@ -29,7 +29,7 @@ public class CategoryController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ModelAndView getById(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("topics/topics_list");
 

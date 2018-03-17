@@ -23,7 +23,7 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping(value = "")
+    @GetMapping("")
     public ResponseEntity<Collection<Message>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "text", required = false) String text,
@@ -66,7 +66,7 @@ public class MessageController {
                 .body(messages);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Message> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 
@@ -93,7 +93,7 @@ public class MessageController {
                 .body(m);
     }
 
-    @PostMapping(value = "")
+    @PostMapping("")
     public ResponseEntity<Message> add(@RequestBody Message message) {
         HttpStatus httpStatus;
 

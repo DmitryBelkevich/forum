@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "")
+    @GetMapping("")
     public ResponseEntity<Collection<User>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "username", required = false) String username
@@ -58,7 +58,7 @@ public class UserController {
                 .body(users);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 
@@ -85,7 +85,7 @@ public class UserController {
                 .body(u);
     }
 
-    @PostMapping(value = "")
+    @PostMapping("")
     public ResponseEntity<User> add(@RequestBody User user) {
         HttpStatus httpStatus;
 

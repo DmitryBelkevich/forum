@@ -20,7 +20,7 @@ public class TopicController {
     @Autowired
     private TopicService topicService;
 
-    @GetMapping(value = "")
+    @GetMapping("")
     public ModelAndView getAll() {
         ModelAndView modelAndView = new ModelAndView("topics/topics_list");
 
@@ -31,7 +31,7 @@ public class TopicController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ModelAndView getById(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("topics/topic");
 
@@ -44,7 +44,7 @@ public class TopicController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/new")
+    @GetMapping("/new")
     public ModelAndView newTopic() {
         ModelAndView modelAndView = new ModelAndView("topics/topic_new");
 
@@ -59,7 +59,7 @@ public class TopicController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping(value = "/save")
+    @PostMapping("/save")
     public ModelAndView save(
             @ModelAttribute Topic topic,
             @RequestParam("text") String text

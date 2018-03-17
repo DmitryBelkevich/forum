@@ -21,7 +21,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping(value = "")
+    @GetMapping("")
     public ResponseEntity<Collection<Category>> getAll(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "title", required = false) String title
@@ -58,7 +58,7 @@ public class CategoryController {
                 .body(categories);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Category> getById(@PathVariable("id") long id) {
         HttpStatus httpStatus;
 
@@ -85,7 +85,7 @@ public class CategoryController {
                 .body(c);
     }
 
-    @PostMapping(value = "")
+    @PostMapping("")
     public ResponseEntity<Category> add(@RequestBody Category category) {
         HttpStatus httpStatus;
 
