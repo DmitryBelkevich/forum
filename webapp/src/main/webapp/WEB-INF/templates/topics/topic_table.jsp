@@ -2,9 +2,9 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<h1>Topic</h1>
+<h1>Topic1</h1>
 
-<h2>topic1</h2>
+<h2>Messages list</h2>
 
 <table class="table">
     <thead>

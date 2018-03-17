@@ -2,7 +2,9 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<h1>Categories</h1>
+<h1>Main</h1>
+
+<h2>Categories list</h2>
 
 <table class="table">
     <thead>
