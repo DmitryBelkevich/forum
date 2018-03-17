@@ -322,4 +322,40 @@ public class CategoryControllerTest {
                 .andExpect(jsonPath("$[0].title").value("category2"))
         ;
     }
+
+    /**
+     * deleteAll
+     */
+
+    @Test
+    public void delete_shouldDeleteAllAndReturnStatusNoContent204() throws Exception {
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category1')");
+        jdbcTemplate.execute("INSERT INTO categories (title) VALUES ('category2')");
+
+        mockMvc.perform(
+                delete("/api/categories")
+        )
+                // status
+                .andExpect(status().isNoContent())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(content().string(""))
+        ;
+
+        mockMvc.perform(
+                get("/api/categories")
+        )
+                // status
+                .andExpect(status().isNoContent())
+                // headers
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
+                // body
+                .andExpect(content().string(""))
+        ;
+    }
 }
