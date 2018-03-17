@@ -41,21 +41,21 @@ public class CategoryController {
 
         Collection<Category> categories = categoryService.getAll(specifications);
 
-        if (categories.isEmpty()) {
-            httpStatus = HttpStatus.NO_CONTENT;
+        if (!categories.isEmpty()) {
+            httpStatus = HttpStatus.OK;
 
             return ResponseEntity
                     .status(httpStatus)
                     .headers(headers)
-                    .body(null);
+                    .body(categories);
         }
 
-        httpStatus = HttpStatus.OK;
+        httpStatus = HttpStatus.NO_CONTENT;
 
         return ResponseEntity
                 .status(httpStatus)
                 .headers(headers)
-                .body(categories);
+                .body(null);
     }
 
     @GetMapping("/{id}")
